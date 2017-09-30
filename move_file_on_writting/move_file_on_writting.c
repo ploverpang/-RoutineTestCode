@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <unistd.h>
+#include <string.h>
 
 /// \file move_file_on_writting.c
 /// \brief  log simulation, do move log out when writting the log
@@ -113,6 +114,18 @@ int move_file(char *file_name)
 
 int main(int argc, char *argv[])
 {
+    int a[10];
+    for (int i = 0; i < 10; ++i) {
+        a[i] = i;
+        printf("%d", a[i]);
+    }
+
+    memset(a, 0, sizeof(int)*10);
+    for (int i = 0; i < 10; ++i) {
+        printf("%d", a[i]);
+    }
+    exit(0);
+
     char *file_name = (char*)"test.log";
     /*write_file_on_timing(file_name);*/
     if(fork() == 0)
