@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <memory>
+#include <string>
 
 using namespace std;
 
@@ -18,7 +19,6 @@ class ABC {
 public:
     ABC();
     ~ABC();
-
 private:
     
 };
@@ -52,7 +52,32 @@ class CC
     CC(int i){}
     // CC(const CC& cc) = delete;
     virtual int pfunction() = 0;
+    virtual void or_fun()
+    {
+    }
+    virtual void final_fun()
+    {
+
+    }
 };
+
+vector<string> ret_str_vec() {
+    vector<string> sv = {"1", "2"};
+    return sv;
+}
+
+void rr_test(int x) {
+    int &&rr = 1;
+    int lr = 2;
+    int &&rr2 = std::move(lr);
+    cout << "right reference rr: "<< rr << endl;
+    cout << "right reference rr2: "<< rr2 << endl;
+
+    auto &&sv = ret_str_vec();
+    for (auto& s : sv) {
+        cout << s << endl;
+    }
+}
 
 class CC_Derive : public CC
 {
@@ -60,6 +85,16 @@ class CC_Derive : public CC
     CC_Derive() {
 
     }
+
+    void or_fun() override
+    {
+    }
+
+    void final_fun()
+    {
+
+    }
+
     int pfunction()
     {
         cout << "pfunction " << endl;
@@ -126,6 +161,8 @@ int main(int argc, char const *argv[])
     using namespace mtk;
     cout << "Hello World" << endl;
 
+    rr_test(1);
+
     Color cl = Color::Red;
 
     int cl_int = static_cast<int>(Color::Red);
@@ -154,7 +191,7 @@ int main(int argc, char const *argv[])
 
     CC_Derive a;
 
-    CC_Derive c = 1;
+    // CC_Derive c = 1;
     // CC_Derive d = 'c';
 
     shared_ptr<CC> cp(new CC_Derive());
