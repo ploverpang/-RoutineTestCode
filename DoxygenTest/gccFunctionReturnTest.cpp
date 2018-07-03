@@ -1,14 +1,16 @@
-
+/**
+ * @brief 
+ * 
+ * @file gccFunctionReturnTest.cpp
+ * @author pangbo05
+ * @date 2018-07-02
+ */
 #include <stdio.h>
 
-/// \file gccFunctionReturnTest.cpp
-/// \brief
-/// \author PangBo, bo.pang@metoak.com
-/// \version
-/// \date 2017-06-29
-
+typedef shourt short;
 /**
- * @brief a class
+ * @brief A CLASS
+ * 
  */
 class C_Base
 {
@@ -16,7 +18,7 @@ class C_Base
         shourt a;
         shourt b;
     public:
-        C();
+        C_BASE();
         void print();
 };
 
