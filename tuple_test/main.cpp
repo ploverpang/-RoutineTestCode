@@ -23,8 +23,9 @@ struct A {
         m_int = {1, 2, 3, 4};
         m_float = {1.f, 2.f, 3.f, 4.f};
     }
-};
+    static constexpr float m_cf = 1.0;
 
+};
 
 int main(int, char**) {
    std::cout << "Hello, world!\n";
@@ -43,4 +44,6 @@ int main(int, char**) {
    for (auto& f : vfloat) {
        cout << "f: " << f << endl;
    }
+
+   cout << A::m_cf << endl;
 }

@@ -8,6 +8,8 @@ struct ListNode {
     ListNode(int v) : next(nullptr), value(v) {};
 };
 
+void print_list(ListNode *head);
+
 void find_max_and_max_prev(ListNode* head, ListNode **max, ListNode **max_prev)
 {
     ListNode *p = head;
@@ -83,6 +85,79 @@ ListNode* select_sort_list(ListNode *head)
     return new_list;
 }
 
+
+ListNode* merge(ListNode *head1, ListNode *head2)
+{
+    ListNode *merged_head = nullptr;
+    ListNode *merged_tail = nullptr;
+
+    while(head1 != nullptr && head2 != nullptr)
+    {
+        if(head1->value < head2->value)
+        {
+            if(merged_head == nullptr)
+            {
+                merged_head = head1;
+                merged_tail = head1;
+            }
+            else{
+                ListNode *tmp = head1;
+                head1 = head1->next;
+                merged_tail->next = tmp;
+                merged_tail = tmp;
+            }
+        }
+        else
+        {
+            if(merged_head == nullptr)
+            {
+                merged_head = head2;
+                merged_tail = head2;
+            }
+            else{
+                ListNode *tmp = head2;
+                head2 = head2->next;
+                merged_tail->next = tmp;
+                merged_tail = tmp;
+            }
+        }
+    }
+
+    if(head1 != nullptr)
+    {
+        merged_tail->next = head1;
+    }else{
+        merged_tail->next = head2;
+    }
+    return merged_head;
+}
+
+ListNode* split(ListNode *head)
+{
+    ListNode *p_slow = head;
+    ListNode *p_fast = head;
+    while(p_fast->next && p_fast->next->next )
+    {
+        p_slow = p_slow->next;
+        p_fast = p_fast->next->next;
+    }
+    return p_slow;
+}
+
+ListNode* merge_sort_list(ListNode *head)
+{
+    if(head->next == nullptr)
+        return head;
+
+    ListNode *splitNode = split(head);
+    ListNode *head1 = head;
+    ListNode *head2 = splitNode->next;
+    splitNode->next = nullptr;
+
+    ListNode *p_sorted_1 = merge_sort_list(head1);
+    ListNode *p_sorted_2 = merge_sort_list(head2);
+    return merge(p_sorted_1, p_sorted_2);
+}
 ListNode* make_list(std::vector<int>& nums)
 {
     if(nums.empty())
@@ -125,7 +200,8 @@ int main(int, char**) {
    printf("before sorted:\n");
    print_list(l);
 
-   ListNode *sorted = select_sort_list(l);
+//    ListNode *sorted = select_sort_list(l);
+   ListNode *sorted = merge_sort_list(l);
 
    printf("after sorted:\n");
    print_list(sorted);
